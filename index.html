@@ -1,268 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Saturday Fingerprint Plan – DCA Round Trip</title>
-<style>
-  :root{
-    --green:#1f3d36;   /* deep forest green: text, structure */
-    --copper:#b5651d;  /* burnt copper: accents, route */
-    --cream:#f4eee1;   /* warm cream: background */
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
-    background:var(--cream);color:var(--green);
-    line-height:1.5;padding:32px 16px;
-  }
-  .page{max-width:900px;margin:0 auto}
-  header{border-top:8px solid var(--green);border-bottom:3px solid var(--copper);padding:20px 0 16px;margin-bottom:28px}
-  h1{font-size:2rem;letter-spacing:.04em;text-transform:uppercase;font-weight:800}
-  .sub{margin-top:6px;font-weight:600;color:var(--copper);letter-spacing:.05em;text-transform:uppercase;font-size:.85rem}
-  h2{font-size:1.1rem;text-transform:uppercase;letter-spacing:.08em;margin:34px 0 12px;padding-left:12px;border-left:8px solid var(--copper)}
-  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border:2px solid var(--green)}
-  .facts div{padding:12px 14px;border-right:2px solid var(--green)}
-  .facts div:last-child{border-right:none}
-  .facts b{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--copper)}
-  .map{border:2px solid var(--green);background:#fff8;padding:8px}
-  svg{width:100%;height:auto;display:block}
-  svg text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;fill:#1f3d36}
-  .note{font-size:.8rem;margin-top:6px}
-  .stop{border:2px solid var(--green);margin-bottom:14px;background:#fffaf0}
-  .stop .head{display:flex;align-items:center;background:var(--green);color:var(--cream)}
-  .stop .num{background:var(--copper);color:var(--cream);font-weight:800;font-size:1.3rem;min-width:52px;text-align:center;padding:10px 0}
-  .stop .title{padding:8px 14px;font-weight:700}
-  .stop .title small{display:block;font-weight:400;opacity:.85}
-  .stop .body{padding:12px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 24px}
-  .stop .body p{font-size:.92rem}
-  .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--copper);font-weight:700;display:block}
-  .backup .head{background:var(--copper)}
-  .backup .num{background:var(--green)}
-  .leg{border-left:4px solid var(--copper);margin:0 0 14px 26px;padding:4px 14px;font-size:.88rem;font-weight:600}
-  table{width:100%;border-collapse:collapse;border:2px solid var(--green);font-size:.92rem}
-  th{background:var(--green);color:var(--cream);text-align:left;padding:8px 10px;text-transform:uppercase;font-size:.75rem;letter-spacing:.08em}
-  td{padding:8px 10px;border-top:1px solid var(--green)}
-  ul.check{list-style:none}
-  ul.check li{padding:6px 0 6px 34px;position:relative;border-bottom:1px solid #1f3d3622}
-  ul.check li::before{content:"";position:absolute;left:4px;top:9px;width:16px;height:16px;border:2px solid var(--green);background:var(--cream)}
-  .rule{background:var(--green);color:var(--cream);padding:14px 18px;border-left:10px solid var(--copper);margin-top:10px}
-  a{color:var(--copper);font-weight:700}
-  footer{margin-top:36px;border-top:3px solid var(--copper);padding-top:12px;font-size:.8rem}
-  @media print{body{padding:0}.stop,.leg{break-inside:avoid}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MISSION TO MD</title>
+
+  <!-- 1960s-inspired type system -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Michroma&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Theme palette */
+      --shadow-charcoal:#1C1E21;   /* 60% */
+      --mid-century-slate:#5A6B7C; /* 30% */
+      --fuse-crimson:#D32F2F;      /* 10% */
+      --manila-cream:#F5F2EB;      /* highlight neutral */
+
+      /* Utility aliases */
+      --bg:var(--shadow-charcoal);
+      --panel:var(--mid-century-slate);
+      --accent:var(--fuse-crimson);
+      --text:var(--manila-cream);
+      --line:var(--manila-cream);
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Share Tech Mono","Helvetica Neue",Arial,sans-serif;
+      line-height:1.45;
+      padding:28px 14px;
+    }
+
+    .page{
+      max-width:980px;
+      margin:0 auto;
+      border:3px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(90,107,124,.14), rgba(90,107,124,.05));
+      box-shadow:0 0 0 6px rgba(211,47,47,.16) inset;
+    }
+
+    header{
+      background:var(--bg);
+      border-bottom:4px solid var(--accent);
+      padding:26px 22px 20px;
+      position:relative;
+      overflow:hidden;
+    }
+    header::after{
+      content:"";
+      position:absolute;
+      right:-70px; top:-28px;
+      width:220px; height:220px;
+      border:4px solid rgba(245,242,235,.22);
+      transform:rotate(24deg);
+      pointer-events:none;
+    }
+
+    .title{
+      font-family:"Oswald", "Arial Narrow", sans-serif;
+      text-transform:uppercase;
+      letter-spacing:-.03em; /* 1960s squeeze */
+      font-weight:700;
+      font-size:clamp(2.2rem,6vw,3.8rem);
+      line-height:.95;
+      margin:0;
+      color:var(--manila-cream);
+    }
+    .subtitle{
+      margin-top:10px;
+      font-family:"Michroma","Share Tech Mono",sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      color:var(--accent);
+      font-size:clamp(.8rem,2.2vw,1rem);
+      font-weight:400;
+    }
+
+    .meta{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:0;
+      border-top:2px solid var(--line);
+      border-bottom:2px solid var(--line);
+      background:var(--panel);
+    }
+    .meta div{
+      padding:10px 12px;
+      border-right:2px solid var(--line);
+    }
+    .meta div:last-child{border-right:none}
+    .meta b{
+      display:block;
+      font-family:"Oswald",sans-serif;
+      text-transform:uppercase;
+      letter-spacing:-.02em;
+      font-size:.86rem;
+      color:var(--manila-cream);
+    }
+    .meta span{
+      color:#fff;
+      font-size:.9rem;
+    }
+
+    main{padding:18px 18px 26px}
+
+    h2{
+      font-family:"Oswald",sans-serif;
+      text-transform:uppercase;
+      letter-spacing:-.02em;
+      font-size:1.45rem;
+      margin:24px 0 10px;
+      color:var(--manila-cream);
+      border-left:10px solid var(--accent);
+      padding-left:10px;
+    }
+
+    .callout{
+      border:2px solid var(--line);
+      background:rgba(90,107,124,.25);
+      padding:10px 12px;
+      font-size:.9rem;
+    }
+
+    /* Schematic map */
+    .map-wrap{
+      border:2px solid var(--line);
+      background:linear-gradient(180deg, rgba(28,30,33,.55), rgba(28,30,33,.9));
+      padding:8px;
+    }
+    svg{width:100%;height:auto;display:block}
+    svg text{
+      font-family:"Share Tech Mono",Arial,sans-serif;
+      fill:var(--manila-cream);
+    }
+    .map-note{
+      margin-top:6px;
+      font-size:.82rem;
+      color:#e8dfd4;
+    }
+
+    .stop{
+      border:2px solid var(--line);
+      margin:12px 0;
+      background:rgba(90,107,124,.25);
+    }
+    .stop-head{
+      display:flex;
+      align-items:stretch;
+      border-bottom:2px solid var(--line);
+    }
+    .stop-num{
+      min-width:56px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--accent);
+      color:var(--manila-cream);
+      font-family:"Oswald",sans-serif;
+      font-size:1.45rem;
+      letter-spacing:-.02em;
+      font-weight:700;
+      border-right:2px solid var(--line);
+    }
+    .stop-title{
+      padding:8px 12px;
+      flex:1;
+    }
+    .stop-title b{
+      display:block;
+      font-family:"Oswald",sans-serif;
+      text-transform:uppercase;
+      letter-spacing:-.02em;
+      font-size:1.04rem;
+      line-height:1.1;
+    }
+    .stop-title small{
+      color:#f0e7da;
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+    }
+    .stop-body{
+      padding:10px 12px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:8px 20px;
+      font-size:.9rem;
+    }
+    .label{
+      display:block;
+      font-family:"Michroma","Share Tech Mono",sans-serif;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-size:.68rem;
+      letter-spacing:.05em;
+      margin-bottom:2px;
+    }
+
+    .leg{
+      margin:0 0 10px 20px;
+      border-left:4px solid var(--accent);
+      padding:4px 10px;
+      font-size:.88rem;
+      color:#fff;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      border:2px solid var(--line);
+      font-size:.88rem;
+      margin-top:8px;
+    }
+    th{
+      background:var(--accent);
+      color:var(--manila-cream);
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      text-align:left;
+      font-family:"Oswald",sans-serif;
+      padding:8px 9px;
+      border-bottom:2px solid var(--line);
+    }
+    td{
+      padding:8px 9px;
+      border-top:1px solid rgba(245,242,235,.45);
+      color:#fff;
+    }
+
+    ul.check{
+      list-style:none;
+      margin:6px 0 0;
+      padding:0;
+      border:2px solid var(--line);
+      background:rgba(90,107,124,.22);
+    }
+    ul.check li{
+      padding:8px 12px 8px 38px;
+      border-top:1px solid rgba(245,242,235,.35);
+      position:relative;
+      font-size:.9rem;
+    }
+    ul.check li:first-child{border-top:none}
+    ul.check li::before{
+      content:"";
+      position:absolute;
+      left:11px; top:10px;
+      width:14px; height:14px;
+      border:2px solid var(--manila-cream);
+      background:transparent;
+    }
+
+    a{
+      color:var(--manila-cream);
+      text-decoration:underline;
+      text-decoration-color:var(--accent);
+      text-underline-offset:2px;
+    }
+    a:hover{color:#fff}
+
+    footer{
+      margin-top:22px;
+      border-top:2px solid var(--line);
+      padding-top:10px;
+      font-size:.78rem;
+      color:#e9dfd4;
+    }
+
+    @media print{
+      body{padding:0;background:#fff;color:#000}
+      .page{
+        border:1px solid #000;
+        box-shadow:none;
+        background:#fff;
+      }
+      header, .meta, .stop, .map-wrap, .callout, ul.check, table{break-inside:avoid}
+    }
+  </style>
 </head>
 <body>
-<div class="page">
+  <div class="page">
+    <header>
+      <h1 class="title">MISSION TO MD</h1>
+      <div class="subtitle">Operation: Fingerprint Sprint</div>
+    </header>
 
-<header>
-  <h1>Saturday Fingerprint Plan</h1>
-  <div class="sub">Maryland Board of Nursing · APRN CHRC · DCA round trip</div>
-</header>
+    <section class="meta">
+      <div><b>Start / End</b><span>Reagan National Airport (DCA)</span></div>
+      <div><b>Service Window</b><span>Saturday · 7:00 AM – 5:00 PM</span></div>
+      <div><b>Hard Deadline</b><span>Return to DCA by 6:30 PM</span></div>
+      <div><b>Primary Objective</b><span>One accepted MBON/CJIS submission</span></div>
+    </section>
 
-<div class="facts">
-  <div><b>Start / End</b>Reagan National (DCA)</div>
-  <div><b>Service window</b>7:00 AM – 5:00 PM</div>
-  <div><b>Back at DCA by</b>6:30 PM</div>
-  <div><b>Goal</b>One accepted submission</div>
-</div>
+    <main>
+      <h2>Visual Route Map</h2>
+      <div class="map-wrap">
+        <svg viewBox="0 0 900 560" role="img" aria-label="Simple schematic route map">
+          <defs>
+            <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+              <path d="M0,0 L9,4.5 L0,9 z" fill="#D32F2F"></path>
+            </marker>
+          </defs>
 
-<h2>Route Map (visual reference only)</h2>
-<div class="map">
-<svg viewBox="0 0 800 520" role="img" aria-label="Schematic route map from DCA through four reservations and back">
-  <defs>
-    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#b5651d"/>
-    </marker>
-  </defs>
-  <rect x="2" y="2" width="796" height="516" fill="#f4eee1" stroke="#1f3d36" stroke-width="3"/>
+          <rect x="2" y="2" width="896" height="556" fill="none" stroke="#F5F2EB" stroke-width="3"/>
 
-  <!-- compass -->
-  <g transform="translate(750,60)">
-    <line x1="0" y1="30" x2="0" y2="-30" stroke="#1f3d36" stroke-width="3"/>
-    <path d="M0,-34 L-8,-18 L8,-18 z" fill="#1f3d36"/>
-    <text x="0" y="-42" text-anchor="middle" font-weight="800" font-size="18">N</text>
-  </g>
+          <!-- Compass -->
+          <g transform="translate(835,70)">
+            <line x1="0" y1="34" x2="0" y2="-34" stroke="#F5F2EB" stroke-width="3"/>
+            <path d="M0,-40 L-8,-22 L8,-22 z" fill="#F5F2EB"/>
+            <text x="0" y="-48" text-anchor="middle" font-size="18" font-weight="700">N</text>
+          </g>
 
-  <!-- backup links (dashed, thin) -->
-  <g stroke="#1f3d36" stroke-width="2" stroke-dasharray="6 6" fill="none">
-    <line x1="400" y1="90" x2="365" y2="150"/>
-    <line x1="330" y1="320" x2="450" y2="440"/>
-    <line x1="330" y1="320" x2="540" y2="410"/>
-  </g>
+          <!-- Backup dashed connectors -->
+          <g stroke="#F5F2EB" stroke-width="2" stroke-dasharray="7 6" fill="none" opacity=".85">
+            <line x1="410" y1="100" x2="375" y2="165"/>
+            <line x1="340" y1="335" x2="470" y2="450"/>
+            <line x1="340" y1="335" x2="560" y2="420"/>
+          </g>
 
-  <!-- main route -->
-  <g stroke="#b5651d" stroke-width="5" fill="none" marker-end="url(#arr)">
-    <line x1="120" y1="420" x2="388" y2="104"/>
-    <line x1="400" y1="90"  x2="250" y2="165"/>
-    <line x1="230" y1="170" x2="322" y2="305"/>
-    <line x1="340" y1="315" x2="676" y2="172"/>
-    <line x1="690" y1="170" x2="136" y2="412"/>
-  </g>
+          <!-- Main route lines -->
+          <g stroke="#D32F2F" stroke-width="6" fill="none" marker-end="url(#arrow)">
+            <line x1="130" y1="450" x2="398" y2="116"/>
+            <line x1="410" y1="100" x2="245" y2="178"/>
+            <line x1="235" y1="182" x2="332" y2="322"/>
+            <line x1="350" y1="332" x2="730" y2="184"/>
+            <line x1="744" y1="182" x2="146" y2="442"/>
+          </g>
 
-  <!-- start/end DCA -->
-  <rect x="90" y="400" width="60" height="40" fill="#1f3d36"/>
-  <text x="120" y="426" text-anchor="middle" font-weight="800" font-size="15" style="fill:#f4eee1">DCA</text>
-  <text x="120" y="466" text-anchor="middle" font-size="13" font-weight="700">START / END</text>
+          <!-- DCA -->
+          <rect x="98" y="430" width="64" height="40" fill="#F5F2EB" stroke="#1C1E21" stroke-width="2"/>
+          <text x="130" y="457" text-anchor="middle" font-size="16" font-weight="700" fill="#1C1E21">DCA</text>
+          <text x="130" y="494" text-anchor="middle" font-size="13" font-weight="700">START / END</text>
 
-  <!-- reservations (solid squares) -->
-  <g font-weight="800" font-size="18" text-anchor="middle">
-    <rect x="380" y="70" width="40" height="40" fill="#b5651d"/><text x="400" y="97" style="fill:#f4eee1">1</text>
-    <rect x="210" y="150" width="40" height="40" fill="#b5651d"/><text x="230" y="177" style="fill:#f4eee1">2</text>
-    <rect x="310" y="300" width="40" height="40" fill="#b5651d"/><text x="330" y="327" style="fill:#f4eee1">3</text>
-    <rect x="670" y="150" width="40" height="40" fill="#b5651d"/><text x="690" y="177" style="fill:#f4eee1">4</text>
-  </g>
+          <!-- Reservations -->
+          <g font-family="Oswald, sans-serif" font-size="20" text-anchor="middle">
+            <rect x="390" y="80" width="40" height="40" fill="#D32F2F" stroke="#F5F2EB" stroke-width="2"/><text x="410" y="107" fill="#F5F2EB">1</text>
+            <rect x="215" y="162" width="40" height="40" fill="#D32F2F" stroke="#F5F2EB" stroke-width="2"/><text x="235" y="189" fill="#F5F2EB">2</text>
+            <rect x="320" y="312" width="40" height="40" fill="#D32F2F" stroke="#F5F2EB" stroke-width="2"/><text x="340" y="339" fill="#F5F2EB">3</text>
+            <rect x="724" y="162" width="40" height="40" fill="#D32F2F" stroke="#F5F2EB" stroke-width="2"/><text x="744" y="189" fill="#F5F2EB">4</text>
+          </g>
 
-  <!-- backups (hollow squares) -->
-  <g fill="#f4eee1" stroke="#1f3d36" stroke-width="3">
-    <rect x="350" y="140" width="30" height="30"/>
-    <rect x="435" y="425" width="30" height="30"/>
-    <rect x="525" y="395" width="30" height="30"/>
-  </g>
-  <g font-weight="800" font-size="14" text-anchor="middle">
-    <text x="365" y="161">B</text><text x="450" y="446">P</text><text x="540" y="416">S</text>
-  </g>
+          <!-- Backups -->
+          <g fill="#5A6B7C" stroke="#F5F2EB" stroke-width="2">
+            <rect x="360" y="153" width="30" height="30"></rect>
+            <rect x="455" y="435" width="30" height="30"></rect>
+            <rect x="545" y="405" width="30" height="30"></rect>
+          </g>
+          <g font-size="13" font-family="Michroma, sans-serif" text-anchor="middle">
+            <text x="375" y="174">B</text>
+            <text x="470" y="456">P</text>
+            <text x="560" y="426">S</text>
+          </g>
 
-  <!-- labels -->
-  <g font-size="13" font-weight="700">
-    <text x="430" y="82">Calverton · 10:00</text>
-    <text x="150" y="140">Silver Spring · 11:20</text>
-    <text x="200" y="345">Hyattsville · 12:30</text>
-    <text x="620" y="215">Hanover · 2:30</text>
-    <text x="300" y="182" >Beltsville (walk-in)</text>
-    <text x="410" y="478">PrintScan (until 2 PM)</text>
-    <text x="500" y="382">Secure FP (until 1 PM)</text>
-  </g>
+          <!-- Labels -->
+          <g font-size="12.5" font-family="Share Tech Mono, monospace">
+            <text x="442" y="93">Calverton · 10:00</text>
+            <text x="150" y="154">Silver Spring · 11:20</text>
+            <text x="206" y="368">Hyattsville · 12:30</text>
+            <text x="670" y="228">Hanover · 2:30</text>
+            <text x="288" y="194">Beltsville (walk-in)</text>
+            <text x="396" y="490">PrintScan (until 2 PM)</text>
+            <text x="515" y="395">Secure FP (until 1 PM)</text>
+          </g>
 
-  <!-- legend -->
-  <g transform="translate(560,470)" font-size="12" font-weight="700">
-    <rect x="0" y="0" width="14" height="14" fill="#b5651d"/><text x="22" y="12">Reservation</text>
-    <rect x="110" y="0" width="14" height="14" fill="#f4eee1" stroke="#1f3d36" stroke-width="2"/><text x="132" y="12">Backup</text>
-  </g>
-</svg>
-</div>
-<p class="note">Schematic, not to scale. Solid line = main route (1 → 2 → 3 → 4 → DCA). Dashed = backup connection.</p>
+          <!-- Legend -->
+          <g transform="translate(640,500)" font-size="12" font-family="Michroma, sans-serif">
+            <rect x="0" y="0" width="14" height="14" fill="#D32F2F" stroke="#F5F2EB" stroke-width="2"></rect>
+            <text x="22" y="12">Reservation</text>
+            <rect x="130" y="0" width="14" height="14" fill="#5A6B7C" stroke="#F5F2EB" stroke-width="2"></rect>
+            <text x="152" y="12">Backup</text>
+          </g>
+        </svg>
+      </div>
+      <p class="map-note">Schematic only (not to scale). Solid crimson path = primary route. Dashed links = backup pivots.</p>
 
-<h2>Before You Go</h2>
-<ul class="check">
-  <li>Government photo ID (driver's license or passport)</li>
-  <li>MBON / CJIS authorization details (ORI, codes or forms, if provided)</li>
-  <li>Payment: credit/debit plus backup card or cash</li>
-  <li>Appointment confirmations (screenshots and phone numbers)</li>
-  <li>Charged phone, charger or power bank</li>
-  <li>Call each shop Friday to confirm slot, MBON acceptance, price and payment type</li>
-</ul>
+      <h2>Point-to-Point Route + Distances</h2>
 
-<h2>Mission Rules</h2>
-<div class="rule">
-  One accepted submission is the goal. Get a receipt or transaction number, cancel the remaining stops, and return to DCA. If a site no-shows or rejects paperwork, leave quickly and move to the next stop. Request Lyft 10–15 minutes before each departure.
-</div>
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">0</div>
+          <div class="stop-title">
+            <b>Reagan National Airport (DCA)</b>
+            <small>2401 Ronald Reagan Washington National Airport Access Rd, Arlington, VA 22202</small>
+          </div>
+        </div>
+      </div>
+      <div class="leg">DCA → Reservation 1: ~22 miles · ~35–50 min · Direction: Northeast</div>
 
-<h2>Route</h2>
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">1</div>
+          <div class="stop-title">
+            <b>Unique Livescan Finger Printing Services</b>
+            <small>Reservation 10:00 AM (plan 10:00–10:40)</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>3901 Calverton Blvd, Suite 250, Calverton, MD 20705</p>
+          <p><span class="label">Phone</span>(301) 969-1801</p>
+          <p><span class="label">Distance from airport</span>~22 miles (NE)</p>
+        </div>
+      </div>
+      <div class="leg">Reservation 1 → Reservation 2: ~10 miles · ~20–30 min · Direction: Southwest</div>
 
-<div class="stop">
-  <div class="head"><div class="num">0</div><div class="title">Reagan National Airport (DCA)<small>Depart about 9:00 AM</small></div></div>
-  <div class="body"><p><span class="label">Address</span>2401 Ronald Reagan Washington National Airport Access Rd, Arlington, VA 22202</p></div>
-</div>
-<div class="leg">DCA → Stop 1 · ~22 mi · ~35–50 min · Northeast</div>
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">2</div>
+          <div class="stop-title">
+            <b>1 Stop Fingerprints, LLC</b>
+            <small>Reservation 11:20 AM (plan 11:20–12:00)</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>10770 Columbia Pike, Unit 30 #E48, Silver Spring, MD 20901</p>
+          <p><span class="label">Phone</span>(240) 389-3238</p>
+          <p><span class="label">Distance from airport</span>~14 miles (N/NE)</p>
+        </div>
+      </div>
+      <div class="leg">Reservation 2 → Reservation 3: ~10 miles · ~25–35 min · Direction: Southeast</div>
 
-<div class="stop">
-  <div class="head"><div class="num">1</div><div class="title">Unique Livescan Finger Printing Services<small>Reservation 10:00 AM (plan 10:00–10:40)</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>3901 Calverton Blvd, Suite 250, Calverton, MD 20705</p>
-    <p><span class="label">Phone</span>(301) 969-1801</p>
-    <p><span class="label">Distance from airport</span>~22 miles (NE)</p>
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">3</div>
+          <div class="stop-title">
+            <b>D Livescan: Fingerprint, Passport and Notary</b>
+            <small>Reservation 12:30 PM (plan 12:30–1:10) · Saturday hours listed 10 AM–1 PM</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>8181 Professional Place, Suite 130, Hyattsville, MD 20785</p>
+          <p><span class="label">Phone</span>(240) 828-8143</p>
+          <p><span class="label">Distance from airport</span>~12 miles (E/NE)</p>
+        </div>
+      </div>
+      <div class="leg">Reservation 3 → Reservation 4: ~24–28 miles · ~30–45 min · Direction: Northeast</div>
+
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">4</div>
+          <div class="stop-title">
+            <b>Hanover Finger Printing</b>
+            <small>Reservation 2:30 PM (plan 2:30–3:10)</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>7502 Connelley Drive, Suite 111, Hanover, MD 21076</p>
+          <p><span class="label">Phone</span>240-200-5955</p>
+          <p><span class="label">Distance from airport</span>~38 miles (NE)</p>
+        </div>
+      </div>
+      <div class="leg">Reservation 4 → DCA: ~38 miles · ~50–70 min · Direction: Southwest</div>
+
+      <h2>Backup Alternatives</h2>
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">B</div>
+          <div class="stop-title">
+            <b>Biometrics Identity Verification (Walk-ins only)</b>
+            <small>Saturday 10:00 AM–3:00 PM</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>5010 Sunnyside Avenue, Suite 300, Beltsville, MD 20705</p>
+          <p><span class="label">Phone</span>301-477-3210</p>
+          <p><span class="label">Distance from airport</span>~20 miles (NE)</p>
+          <p><span class="label">From Reservation 1</span>~3 miles · ~8–12 min · East/Southeast</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">P</div>
+          <div class="stop-title">
+            <b>PrintScan</b>
+            <small>Saturday 9:00 AM–2:00 PM</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>1401 Mercantile Lane, Ste 251, Upper Marlboro, MD 20774</p>
+          <p><span class="label">Phone</span>240-600-1448</p>
+          <p><span class="label">Distance from airport</span>~15 miles (E/SE)</p>
+          <p><span class="label">From Reservation 3</span>~8–10 miles · ~15–25 min · Southeast</p>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-head">
+          <div class="stop-num">S</div>
+          <div class="stop-title">
+            <b>Secure Fingerprints</b>
+            <small>Saturday 10:00 AM–1:00 PM</small>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p><span class="label">Address</span>9801 Fallard Court, Upper Marlboro, MD 20742</p>
+          <p><span class="label">Phone</span>410-350-1540</p>
+          <p><span class="label">Distance from airport</span>~18 miles (E/SE)</p>
+          <p><span class="label">From Reservation 3</span>~10–12 miles · ~20–30 min · Southeast</p>
+        </div>
+      </div>
+
+      <h2>Execution Checklist</h2>
+      <ul class="check">
+        <li>Carry government photo ID, payment method(s), and MBON/CJIS identifiers.</li>
+        <li>At each site: ask them to confirm MBON CHRC submission path before capture.</li>
+        <li>If a stop fails, immediately pivot to next reservation or nearest viable backup.</li>
+        <li>Once one submission succeeds, collect receipt/proof and end mission.</li>
+        <li>Target departure back to DCA no later than 5:00 PM buffer if delays stack up.</li>
+      </ul>
+
+      <h2>Google Maps Links</h2>
+      <ul class="check">
+        <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C8181+Professional+Place+Suite+130,+Hyattsville,+MD+20785%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Primary: DCA → 1 → 2 → 3 → 4 → DCA</a></li>
+        <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C5010+Sunnyside+Avenue+Suite+300,+Beltsville,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C8181+Professional+Place+Suite+130,+Hyattsville,+MD+20785%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Backup A route (via Beltsville)</a></li>
+        <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C1401+Mercantile+Lane+Ste+251,+Upper+Marlboro,+MD+20774%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Backup B route (via PrintScan)</a></li>
+        <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C9801+Fallard+Court,+Upper+Marlboro,+MD+20742%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Backup C route (via Secure Fingerprints)</a></li>
+      </ul>
+
+      <footer>
+        Distances and times are estimates (not live traffic). Verify hours and MBON/CJIS submission compatibility with each provider before travel.
+      </footer>
+    </main>
   </div>
-</div>
-<div class="leg">Stop 1 → Stop 2 · ~10 mi · ~20–30 min · Southwest</div>
-
-<div class="stop">
-  <div class="head"><div class="num">2</div><div class="title">1 Stop Fingerprints, LLC<small>Reservation 11:20 AM (plan 11:20–12:00)</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>10770 Columbia Pike, Unit 30 #E48, Silver Spring, MD 20901</p>
-    <p><span class="label">Phone</span>(240) 389-3238</p>
-    <p><span class="label">Distance from airport</span>~14 miles (N/NE)</p>
-  </div>
-</div>
-<div class="leg">Stop 2 → Stop 3 · ~10 mi · ~25–35 min · Southeast</div>
-
-<div class="stop">
-  <div class="head"><div class="num">3</div><div class="title">D Livescan: Fingerprint, Passport and Notary<small>Reservation 12:30 PM (plan 12:30–1:10) · Closes 1:00 PM, time-sensitive</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>8181 Professional Place, Suite 130, Hyattsville, MD 20785</p>
-    <p><span class="label">Phone</span>(240) 828-8143</p>
-    <p><span class="label">Hours</span>Saturday 10 AM – 1 PM</p>
-    <p><span class="label">Distance from airport</span>~12 miles (E/NE)</p>
-  </div>
-</div>
-<div class="leg">Stop 3 → Stop 4 · ~24–28 mi · ~30–45 min · Northeast</div>
-
-<div class="stop">
-  <div class="head"><div class="num">4</div><div class="title">Hanover Finger Printing<small>Reservation 2:30 PM (plan 2:30–3:10) · Last resort</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>7502 Connelley Drive, Suite 111, Hanover, MD 21076</p>
-    <p><span class="label">Phone</span>(240) 200-5955</p>
-    <p><span class="label">Distance from airport</span>~38 miles (NE)</p>
-  </div>
-</div>
-<div class="leg">Stop 4 → DCA · ~38 mi · ~50–70 min · Southwest · Expected arrival 4:15–5:30 PM</div>
-
-<h2>Backup Options</h2>
-<div class="stop backup">
-  <div class="head"><div class="num">B</div><div class="title">Biometrics Identity Verification<small>Walk-ins only · Sat 10 AM – 3 PM</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>5010 Sunnyside Ave, Suite 300, Beltsville, MD 20705</p>
-    <p><span class="label">Phone</span>(301) 477-3210</p>
-    <p><span class="label">Use</span>If Stop 1 fails. ~3 mi, ~8–12 min from Stop 1 (East/Southeast). ~20 mi from DCA (NE).</p>
-  </div>
-</div>
-<div class="stop backup">
-  <div class="head"><div class="num">P</div><div class="title">PrintScan<small>Sat 9 AM – 2 PM</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>1401 Mercantile Lane, Ste 251, Upper Marlboro, MD 20774</p>
-    <p><span class="label">Phone</span>(240) 600-1448</p>
-    <p><span class="label">Use</span>Midday fallback if Stop 3 is tight or fails. ~8–10 mi, ~15–25 min from Stop 3 (SE). ~15 mi from DCA (E/SE).</p>
-  </div>
-</div>
-<div class="stop backup">
-  <div class="head"><div class="num">S</div><div class="title">Secure Fingerprints<small>Sat 10 AM – 1 PM</small></div></div>
-  <div class="body">
-    <p><span class="label">Address</span>9801 Fallard Court, Upper Marlboro, MD 20742</p>
-    <p><span class="label">Phone</span>(410) 350-1540</p>
-    <p><span class="label">Use</span>Only before 1 PM. ~10–12 mi, ~20–30 min from Stop 3 (SE). ~18 mi from DCA (E/SE).</p>
-  </div>
-</div>
-
-<h2>Timeline</h2>
-<table>
-  <tr><th>Stop</th><th>Depart</th><th>Leg</th><th>Direction</th><th>Slot</th></tr>
-  <tr><td>DCA → 1</td><td>~9:00</td><td>~22 mi · 35–50 min</td><td>NE</td><td>10:00–10:40</td></tr>
-  <tr><td>1 → 2</td><td>10:40</td><td>~10 mi · 20–30 min</td><td>SW</td><td>11:20–12:00</td></tr>
-  <tr><td>2 → 3</td><td>12:00</td><td>~10 mi · 25–35 min</td><td>SE</td><td>12:30–1:10</td></tr>
-  <tr><td>3 → 4</td><td>1:10</td><td>~24–28 mi · 30–45 min</td><td>NE</td><td>2:30–3:10</td></tr>
-  <tr><td>4 → DCA</td><td>3:10</td><td>~38 mi · 50–70 min</td><td>SW</td><td>Due by 6:30 PM</td></tr>
-</table>
-
-<h2>Script at Check-In</h2>
-<ul class="check">
-  <li>"I need fingerprints for the Maryland Board of Nursing CHRC. Can you confirm this is processed and submitted correctly for MBON/CJIS?"</li>
-  <li>"Please confirm all required identifiers are entered correctly before capture."</li>
-  <li>"Please give me printed or emailed proof of submission before I leave."</li>
-</ul>
-
-<h2>Google Maps Links</h2>
-<ul class="check">
-  <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C8181+Professional+Place+Suite+130,+Hyattsville,+MD+20785%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Primary route: DCA → 1 → 2 → 3 → 4 → DCA</a></li>
-  <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C5010+Sunnyside+Avenue+Suite+300,+Beltsville,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C8181+Professional+Place+Suite+130,+Hyattsville,+MD+20785%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Backup A: via Beltsville</a></li>
-  <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C1401+Mercantile+Lane+Ste+251,+Upper+Marlboro,+MD+20774%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Backup B: via PrintScan</a></li>
-  <li><a href="https://www.google.com/maps/dir/?api=1&origin=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&destination=Reagan+National+Airport+(DCA),+2401+Ronald+Reagan+Washington+National+Airport+Access+Rd,+Arlington,+VA+22202&travelmode=driving&waypoints=3901+Calverton+Blvd+Suite+250,+Calverton,+MD+20705%7C10770+Columbia+Pike+Unit+30+E48,+Silver+Spring,+MD+20901%7C9801+Fallard+Court,+Upper+Marlboro,+MD+20742%7C7502+Connelley+Drive+Suite+111,+Hanover,+MD+21076" target="_blank" rel="noopener">Backup C: via Secure Fingerprints</a></li>
-</ul>
-
-<footer>
-  Distances and times are estimates, not live traffic. Confirm hours, MBON acceptance, and CJIS authorization with each provider
-  (<a href="https://dpscs.maryland.gov/publicservs/pfp.shtml" target="_blank" rel="noopener">official CJIS private provider list</a>).
-</footer>
-
-</div>
 </body>
 </html>
